@@ -9,14 +9,14 @@ fn main() {
     use diesel_demo::schema::words::dsl::*;
 
     let connection = establish_connection();
-    let results = words.limit(5)
+    let results = words.limit(10000)
         .load::<Word>(&connection)
         .expect("Error loading words");
 
     println!("Displaying {} words", results.len());
     for wordd in results {
-        println!("{} is {}", wordd.word, wordd.Gender);
-        println!("----------\n");
+        println!("{} with id {} is {}", wordd.word, wordd.id, wordd.Gender);
+
     
     }
 }
