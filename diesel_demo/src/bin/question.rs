@@ -42,6 +42,7 @@ fn main() {
             }
         };
 
+    let numwords  = get_number_words();
     let mut counter = 0;
     while counter < guess {
         counter += 1;
@@ -54,15 +55,20 @@ fn main() {
 fn get_random_n_word(word_limit:i64) {
 
     use diesel_demo::schema::words::dsl::*;
+
     let connection = establish_connection();
     let mut rng = rand::thread_rng();
-    let word_id: i64 = rng.gen_range(3, word_limit);
-    let word_id =  word_id as i32; // Need to cast it to i32 for it to work with diesel::Expressin id.eq()
+    let word_id: i64 = rng.gen_range(1, word_limit);
+//    let word_id =  word_id as i32; // Need to cast it to i32 for it to work with diesel::Expressin id.eq()
+    println!("{}", word_id);
     let word1: (String, String) =  words
-        .filter(id.eq(word_id))
-        .select((word,gender))
+        .order(frequency.desc())
+        .limit(word_limit)
+        .offset(word_id)
+        .select((word, gender))
+//        .get_result(&connection)
         .first(&connection)
-        .expect("Error conting words");
+        .expect("Error getting word");
     println!("word {} is {}",word1.0, word1.1);
 }
 

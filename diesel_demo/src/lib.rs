@@ -22,12 +22,14 @@ pub fn establish_connection() -> PgConnection {
         .expect(&format!("Error connecting to {}", database_url))
 }
 
-pub fn create_word<'a>(conn: &PgConnection, word: &'a str,gender:  &'a str) -> Word {
+pub fn create_word<'a>(conn: &PgConnection, word: &'a str, gender:  &'a str, frequency: &'a f32) -> Word {
     use schema::words;
+    println!("{}", frequency);
 
     let new_word = NewWord {
         word: word,
         gender: gender,
+        frequency: frequency, 
     };
 
     diesel::insert_into(words::table)

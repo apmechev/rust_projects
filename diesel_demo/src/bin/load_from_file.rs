@@ -29,9 +29,10 @@ fn load_from_file(filename: &String, gender: &String) {
     let mut lines = contents.split("\n");
     for line in lines {
         let word: Vec<&str> = line.split('\t').collect();
-        let word = word[1];
-        let word = create_word(&connection, word, &gender);
-        println!("\nSaved word {} with id {}", word.word, word.id);
+        let word_name = word[1];
+        let freq:f32 = word[17].parse().unwrap();
+//        println!("{} {}", word_name,freq);
+        let word = create_word(&connection, word_name, &gender, &freq);
     }
 }
 
