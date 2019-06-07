@@ -8,11 +8,10 @@ pub struct Word {
     pub frequency: f32,
 }
 
-
 #[derive(Insertable)]
 #[table_name = "words"]
 pub struct NewWord<'a> {
     pub word: &'a str,
     pub gender: &'a str,
-    pub frequency: &'a f32, 
+    pub frequency: &'a f32,
 }
